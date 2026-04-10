@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-config
+  namespace: finance-tracker
+  labels:
+    app: postgres
+data:
+  init.sql: |
+    -- Verify DB exists (created by POSTGRES_DB env var)
+    \c finance_tracker;
+
+    -- Grant all privileges
+    GRANT ALL PRIVILEGES ON DATABASE finance_tracker TO admin;
+
+    -- Set timezone
+    ALTER DATABASE finance_tracker SET timezone TO 'UTC';

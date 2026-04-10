@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+logs/
+*.db
+
+# Node
+node_modules/
+dist/
+.env
+.env.local
+
+# Docker
+.dockerignore
+
+# IDE
+.idea/
+.vscode/settings.json
+*.DS_Store

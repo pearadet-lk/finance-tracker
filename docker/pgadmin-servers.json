@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "FinanceTracker Local",
+      "Group": "Servers",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "finance_tracker",
+      "Username": "admin",
+      "Password": "password",
+      "SSLMode": "prefer",
+      "SavePassword": true
+    }
+  }
+}

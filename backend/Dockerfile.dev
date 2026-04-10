@@ -1,0 +1,25 @@
+# Dev Dockerfile — uses dotnet watch for hot reload
+FROM mcr.microsoft.com/dotnet/sdk:10.0
+WORKDIR /app
+
+# Copy solution and all csproj files first (layer cache for restore)
+COPY FinanceTracker.sln ./
+COPY src/FinanceTracker.Api/FinanceTracker.Api.csproj                         src/FinanceTracker.Api/
+COPY src/FinanceTracker.Application/FinanceTracker.Application.csproj         src/FinanceTracker.Application/
+COPY src/FinanceTracker.Domain/FinanceTracker.Domain.csproj                   src/FinanceTracker.Domain/
+COPY src/FinanceTracker.Infrastructure/FinanceTracker.Infrastructure.csproj   src/FinanceTracker.Infrastructure/
+COPY tests/FinanceTracker.UnitTests/FinanceTracker.UnitTests.csproj           tests/FinanceTracker.UnitTests/
+COPY tests/FinanceTracker.IntegrationTests/FinanceTracker.IntegrationTests.csproj tests/FinanceTracker.IntegrationTests/
+
+# Restore once — this layer is cached unless .csproj files change
+RUN dotnet restore FinanceTracker.sln
+
+# Copy remaining source (will be overridden by volume mount in dev)
+COPY . .
+
+EXPOSE 8080
+
+# dotnet watch — auto-recompiles on file change
+CMD ["dotnet", "watch", "run", \
+     "--project", "src/FinanceTracker.Api/FinanceTracker.Api.csproj", \
+     "--urls", "http://+:8080"]
