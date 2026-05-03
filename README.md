@@ -64,6 +64,8 @@ docker compose -f docker/docker-compose.yml up --build
 | Frontend | http://localhost:3000       |
 | API      | http://localhost:5001       |
 | Swagger  | http://localhost:5001/swagger |
+| Prometheus | http://localhost:9090     |
+| Grafana  | http://localhost:3001 (`admin`/`admin`) |
 
 ---
 
